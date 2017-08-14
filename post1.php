@@ -1,4 +1,8 @@
 <?php 
+		/**
+ 	 	* @author Tarunkant Gupta
+  		* @author Tarunkant Gupta <tarunkant05@gmail.com><tarun05blog.wordpress.com>
+  		*/
 		$String1 = $_POST['pubip'];
 		$String2 = substr($String1, 17);
         $ip1 = file_get_contents("ServeIP");

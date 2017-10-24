@@ -1,5 +1,6 @@
 <!DOCTYPE>
 <html>
+<title>IPLookUp</title>
 <head>
 
 <meta name="author" content="Tarunkant Gupta">
@@ -13,25 +14,25 @@
 
 <script>
 window.RTCPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;   //compatibility for firefox and chrome
-    var pc = new RTCPeerConnection({iceServers:[]}), noop = function(){};      
+    var pc = new RTCPeerConnection({iceServers:[]}), noop = function(){};
     pc.createDataChannel("");    //create a bogus data channel
     pc.createOffer(pc.setLocalDescription.bind(pc), noop);    // create offer and set local description
     var myIP;
     pc.onicecandidate = function(ice){  //listen for candidate events
         if(!ice || !ice.candidate || !ice.candidate.candidate)  return;
         myIP = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/.exec(ice.candidate.candidate)[1];
-        document.getElementById("demo").innerHTML = 'Internal IP Addr : ' +  myIP;   
+        document.getElementById("demo").innerHTML = 'Internal IP Addr : ' +  myIP;
         pc.onicecandidate = noop;
-        
+
         var value1 = 'Internal IP Addr : ' + myIP;
-        
+
         if (myIP!=null) {
         $.post("post.php", {
         intip:value1
         });
         }
 
-    
+
     };
 </script>
 
@@ -39,7 +40,7 @@ window.RTCPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnecti
 $.get("http://ipinfo.io", function(response) {
     document.getElementById("demo1").innerHTML = 'Public IP Addr : ' +  response.ip;
     var value = 'Public IP Addr : ' + response.ip;
-    
+
     if (response.ip!=null) {
     $.post("post1.php", {
     pubip:value
@@ -51,6 +52,7 @@ $.get("http://ipinfo.io", function(response) {
 
 </head>
 <body>
+<h1><u>Welcome to IPLookUp !</u></h1>
 <p id="demo"></p>
 <p id="demo1"></p>
 </body>
